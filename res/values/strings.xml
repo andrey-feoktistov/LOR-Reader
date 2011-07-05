@@ -1,0 +1,8 @@
+<?pro.msoft.android.lorreader.utils.xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">LOR Reader</string>
+	<string name="ReaderActivity_Title_Header">linux.org.ru</string>
+	<string name="ReaderActivity_Title_SubHeader">Русская информация об ОС Linux</string>
+	<string name="Msg_please_wait">Пожалуйста, подождите!</string>
+	<string name="Msg_loading_rss">Загрузка RSS ленты</string>
+</resources>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:padding="3dip">
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_weight="2"
+		android:orientation="vertical">
+		<TextView
+				android:id="@+id/ItemTitle"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_alignParentTop="true"
+				android:paddingBottom="3dip"
+				android:textColor="@android:color/black"/>
+		<TextView
+				android:id="@+id/ItemAuthor"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_below="@id/ItemTitle"
+				android:layout_alignParentLeft="true"
+				android:textColor="@android:color/tertiary_text_dark"
+				/>
+		<TextView
+				android:id="@+id/ItemDate"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_below="@id/ItemTitle"
+				android:layout_alignParentRight="true"
+				android:textColor="@android:color/tertiary_text_dark"/>
+	</RelativeLayout>
+	<ImageView
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:layout_gravity="center"
+			android:src="@drawable/news_list_right_arrow"/>
+</LinearLayout>
