@@ -54,20 +54,19 @@ public class FeedLoader
 		final XPathAccessor accessor = new XPathAccessor(document);
 		final Channel channel = new Channel();
 		final ArrayList<Item> items = new ArrayList<Item>();
-
+				
 		accessor.appendObjectsToList(
 				"/rss/channel/item", items,
 				new XPathAccessor.ObjectFactory<Item>(){
 					@Override
 					public Item create(Node node)
 					{
-						final XPathAccessor accessor = new XPathAccessor(node);
 						final Item item = new Item();
-						item.setAuthor(accessor.getText("author"));
-						item.setDate(accessor.getDateTime("pubDate", dateFormat));
-						item.setTitle(accessor.getText("title"));
-						item.setDescription(accessor.getText("description"));
-						item.setLink(accessor.getText("link"));
+						item.setAuthor(accessor.getText(node, "author"));
+						item.setDate(accessor.getDateTime(node, "pubDate", dateFormat));
+						item.setTitle(accessor.getText(node, "title"));
+						item.setDescription(accessor.getText(node, "description"));
+						item.setLink(accessor.getText(node, "link"));
 						return item;
 					}
 				});

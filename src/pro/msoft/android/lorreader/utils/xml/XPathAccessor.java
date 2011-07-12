@@ -4,16 +4,11 @@ package pro.msoft.android.lorreader.utils.xml;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
+import javax.xml.xpath.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 
@@ -24,6 +19,9 @@ public class XPathAccessor
 
 	private XPathFactory xpathFactory;
 	private Node rootNode;
+
+	private Map<String, XPathExpression> expressionsCache = new HashMap<String, XPathExpression>();
+	private XPath xPath = null;
 
 	public interface ObjectFactory<T>
 	{
@@ -63,15 +61,39 @@ public class XPathAccessor
 		return xpathFactory.newXPath();
 	}
 
+	public XPath getXPath()
+	{
+		if (xPath == null)
+			xPath = newXPath();
+
+		return xPath;
+	}
+
 	public Node getRootNode()
 	{
 		return rootNode;
 	}
 
+	public XPathExpression getCompiledExpression(String expr) throws XPathExpressionException
+	{
+		XPathExpression compiledExpr = expressionsCache.get(expr);
+		if (compiledExpr == null) {
+			compiledExpr = getXPath().compile(expr);
+			expressionsCache.put(expr, compiledExpr);
+		}
+
+		return compiledExpr;
+	}
+
+	public void clearCache()
+	{
+		expressionsCache.clear();
+	}
+
 	public Node getNode(Node rootNode, String query)
 	{
 		try {
-			return (Node) newXPath().evaluate(query, rootNode, XPathConstants.NODE);
+			return (Node) getCompiledExpression(query).evaluate(rootNode, XPathConstants.NODE);
 		}
 		catch (XPathExpressionException e) {
 			throw new ValueAccessingException(
@@ -87,7 +109,7 @@ public class XPathAccessor
 	public NodeList getNodeSet(Node rootNode, String query)
 	{
 		try {
-			return (NodeList) newXPath().evaluate(query, rootNode, XPathConstants.NODESET);
+			return (NodeList) getCompiledExpression(query).evaluate(rootNode, XPathConstants.NODESET);
 		}
 		catch (XPathExpressionException e) {
 			throw new ValueAccessingException(
