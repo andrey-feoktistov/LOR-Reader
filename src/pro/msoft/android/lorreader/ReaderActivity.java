@@ -69,16 +69,15 @@ public class ReaderActivity extends Activity
 		public View getView(int i, View view, ViewGroup viewGroup)
 		{
 			if (view == null)
-			{
 				view = layoutInflater.inflate(R.layout.rss_item, null);
-				TextView titleView = (TextView) view.findViewById(R.id.ItemTitle);
-				TextView dateView = (TextView) view.findViewById(R.id.ItemDate);
-				TextView authorView = (TextView) view.findViewById(R.id.ItemAuthor);
-				Item item = getItem(i);
-				titleView.setText(Html.fromHtml(item.getTitle()).toString());
-				dateView.setText(DateFormat.getDateFormat(context).format(item.getDate()));
-				authorView.setText(item.getAuthor());
-			}
+
+			TextView titleView = (TextView) view.findViewById(R.id.ItemTitle);
+			TextView dateView = (TextView) view.findViewById(R.id.ItemDate);
+			TextView authorView = (TextView) view.findViewById(R.id.ItemAuthor);
+			Item item = getItem(i);
+			titleView.setText(Html.fromHtml(item.getTitle()).toString());
+			dateView.setText(DateFormat.getDateFormat(context).format(item.getDate()));
+			authorView.setText(item.getAuthor());
 
 			return view;
 		}
